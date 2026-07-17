@@ -8,119 +8,163 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --sky:#101a2b;        /* Hanle night sky */
-  --sky2:#16233a;
-  --card:#1b2a44;
-  --sand:#e8dcc3;       /* cold-desert sand */
-  --sand-dim:#b8ad97;
-  --bro:#f5c518;        /* BRO milestone yellow */
-  --glacier:#7fc4d8;    /* glacial blue */
-  --flag-red:#e2584d;
-  --flag-green:#5fae7f;
-  --line:#31456b;
-  --fuel:#ffb84d;
+  --paper:#f5f0e3;      /* cold-desert sand */
+  --paper2:#ede6d3;
+  --card:#fffdf7;
+  --ink:#25334d;        /* deep Indus slate */
+  --muted:#8b8471;
+  --bro:#b98a00;        /* BRO milestone gold (text-safe) */
+  --bro-bright:#f5c518;
+  --glacier:#2b7ea1;    /* Pangong blue */
+  --flag-red:#c0463c;
+  --flag-green:#2f7d54;
+  --line:#e5dcc4;
+  --fuel-bg:#fdf6df;
+  --fuel-bd:#e3c878;
+  --fuel-tx:#8a6800;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
-body{background:var(--sky);color:var(--sand);font-family:'Inter',system-ui,sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
-.wrap{max-width:640px;margin:0 auto;padding:0 14px 60px}
+body{background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;
+  background-image:linear-gradient(180deg,#e9f2f7 0%,var(--paper) 380px)}
+.wrap{max-width:640px;margin:0 auto;padding:0 14px 110px}
 
-/* ---------- header ---------- */
-header{padding:26px 0 14px;text-align:left}
-.eyebrow{font-family:'Barlow Condensed';font-weight:600;letter-spacing:.18em;text-transform:uppercase;font-size:13px;color:var(--glacier)}
-h1{font-family:'Barlow Condensed';font-weight:700;font-size:34px;line-height:1.05;margin:6px 0 4px;color:#fff}
-h1 .yellow{color:var(--bro)}
-.dates{color:var(--sand-dim);font-size:13.5px}
-.route-strip{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px}
-.route-strip span{background:var(--sky2);border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:12px;color:var(--sand)}
+/* ---------- hero ---------- */
+header{padding:0 0 14px}
+.hero{position:relative;margin:0 -14px;overflow:hidden;background:#22354f}
+.hero img{display:block;width:100%;height:240px;object-fit:cover}
+.hero svg{display:block;width:100%;height:auto}
+.hero .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,19,34,.25) 0%,rgba(10,19,34,0) 40%,rgba(10,19,34,.62) 100%)}
+.hero-txt{position:absolute;left:14px;right:14px;bottom:12px;z-index:3}
+.eyebrow{font-family:'Barlow Condensed';font-weight:600;letter-spacing:.18em;text-transform:uppercase;font-size:13px;color:#cfe8f2;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+h1{font-family:'Barlow Condensed';font-weight:700;font-size:34px;line-height:1.05;margin:4px 0 2px;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.65)}
+h1 .yellow{color:var(--bro-bright)}
+.hero-txt .dates{color:#f0ead8;font-size:13.5px;text-shadow:0 1px 5px rgba(0,0,0,.65)}
+.photo-credit{position:absolute;right:8px;top:8px;z-index:3;font-size:9px;color:rgba(255,255,255,.75);background:rgba(0,0,0,.3);padding:2px 7px;border-radius:6px;text-decoration:none}
+.dates{color:var(--muted);font-size:13.5px}
+.postcard{background:var(--card);border:1px solid var(--line);border-radius:0 0 16px 16px;margin:0 -6px;padding:14px 16px;box-shadow:0 8px 20px rgba(80,65,30,.1)}
+.route-strip{display:flex;flex-wrap:wrap;gap:5px}
+.route-strip span{background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:12px;color:var(--ink);font-weight:500}
 .route-strip .arrow{border:none;background:none;color:var(--glacier);padding:4px 0}
-.mustdo{margin-top:12px;background:linear-gradient(90deg,#3a2b10,#2a2410);border:1px solid var(--bro);border-radius:12px;padding:10px 12px;font-size:13px}
+.mustdo{margin-top:12px;background:#fdf6df;border:1px solid var(--fuel-bd);border-left:4px solid var(--bro-bright);border-radius:12px;padding:10px 12px;font-size:13px}
 .mustdo b{color:var(--bro)}
 
 /* ---------- tabs ---------- */
-.tabs{position:sticky;top:0;z-index:20;background:linear-gradient(var(--sky) 85%,transparent);padding:10px 0 8px;display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tabs{position:sticky;top:0;z-index:20;background:linear-gradient(var(--paper) 82%,transparent);padding:10px 0 8px;display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .tabs::-webkit-scrollbar{display:none}
-.tab{flex:0 0 auto;font-family:'Barlow Condensed';font-weight:600;font-size:15px;letter-spacing:.03em;background:var(--sky2);color:var(--sand-dim);border:1px solid var(--line);border-radius:10px;padding:8px 13px;cursor:pointer;white-space:nowrap}
-.tab.active{background:var(--bro);color:#1a1405;border-color:var(--bro)}
+.tab{flex:0 0 auto;font-family:'Barlow Condensed';font-weight:600;font-size:15px;letter-spacing:.03em;background:var(--card);color:var(--muted);border:1px solid var(--line);border-radius:10px;padding:8px 13px;cursor:pointer;white-space:nowrap;box-shadow:0 2px 6px rgba(80,65,30,.08)}
+.tab.active{background:var(--bro-bright);color:#3d2f00;border-color:#d9ae00;box-shadow:0 3px 10px rgba(185,138,0,.3)}
 
 /* ---------- option panel ---------- */
 .panel{display:none}
 .panel.active{display:block}
 .opt-head{margin:10px 0 4px}
-.opt-title{font-family:'Barlow Condensed';font-weight:700;font-size:26px;color:#fff;line-height:1.1}
-.opt-sub{color:var(--sand-dim);font-size:13.5px;margin-top:3px}
+.opt-title{font-family:'Barlow Condensed';font-weight:700;font-size:26px;color:var(--ink);line-height:1.1}
+.opt-sub{color:var(--muted);font-size:13.5px;margin-top:3px}
 .stats{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0 4px}
-.stat{background:var(--sky2);border:1px solid var(--line);border-radius:10px;padding:7px 11px;font-size:12.5px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:7px 11px;font-size:12.5px;color:var(--muted);box-shadow:0 2px 6px rgba(80,65,30,.07)}
 .stat b{display:block;font-family:'Barlow Condensed';font-size:17px;font-weight:600;color:var(--glacier);letter-spacing:.02em}
 .stat.diff-easy b{color:var(--flag-green)}
 .stat.diff-mod b{color:var(--bro)}
 .stat.diff-hard b{color:var(--flag-red)}
-.fuelroute{margin:8px 0 0;background:#1f1a0c;border:1px dashed #5c4d1c;border-radius:10px;padding:8px 11px;font-size:12px;color:var(--fuel);line-height:1.7}
-.fuelroute b{color:#fff;font-weight:600}
-.fuelroute .lbl{font-family:'Barlow Condensed';font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:11px;color:var(--sand-dim);display:block;margin-bottom:2px}
-/* ---------- stays ---------- */
-.stays{margin-top:14px}
-.stays-h{font-family:'Barlow Condensed';font-weight:700;font-size:20px;color:#fff;margin-bottom:8px}
-.stay{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:8px}
-.stay .s-town{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--glacier)}
-.stay .s-name{font-family:'Barlow Condensed';font-weight:600;font-size:19px;color:#fff}
-.stay .s-dates{font-size:12.5px;color:var(--sand-dim);margin-top:1px}
-.stay .s-money{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-.stay .s-money span{background:var(--sky2);border:1px solid var(--line);border-radius:8px;padding:4px 9px;font-size:12px}
-.stay .s-money b{color:var(--bro)}
-.stay .s-money .paid b{color:var(--flag-green)}
-.stay .s-links{display:flex;gap:8px;margin-top:10px}
-.stay .s-links a{flex:1;text-align:center;text-decoration:none;font-family:'Barlow Condensed';font-weight:600;font-size:15px;letter-spacing:.03em;border-radius:10px;padding:9px 8px}
-.stay .s-links a.call{background:#173423;color:var(--flag-green);border:1px solid #2b5b41}
-.stay .s-links a.map{background:#14283a;color:var(--glacier);border:1px solid #2b567a}
-.stay .s-links a.nonum{background:var(--sky2);color:var(--sand-dim);border:1px dashed var(--line);pointer-events:none}
-.pay-total{background:linear-gradient(90deg,#2a2410,#1f1a0c);border:1px solid #5c4d1c;border-radius:12px;padding:10px 14px;font-size:13px;margin-bottom:8px}
-.pay-total b{color:var(--bro)}
+.fuelroute{margin:8px 0 0;background:var(--fuel-bg);border:1px dashed var(--fuel-bd);border-radius:10px;padding:8px 11px;font-size:12px;color:var(--fuel-tx);line-height:1.7}
+.fuelroute b{color:var(--ink);font-weight:600}
+.fuelroute .lbl{font-family:'Barlow Condensed';font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:11px;color:var(--muted);display:block;margin-bottom:2px}
 
 /* ---------- day timeline ---------- */
 .days{margin-top:14px;position:relative}
 .days::before{content:"";position:absolute;left:15px;top:8px;bottom:8px;width:2px;background:repeating-linear-gradient(var(--line) 0 8px,transparent 8px 14px)}
 details.day{position:relative;margin:0 0 10px 0;padding-left:38px}
-details.day::before{content:attr(data-d);position:absolute;left:0;top:10px;width:32px;height:32px;border-radius:50%;background:var(--sky2);border:2px solid var(--line);color:var(--glacier);font-family:'Barlow Condensed';font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;z-index:1}
-details.day[data-must]::before{border-color:var(--bro);color:var(--bro);background:#241d08}
-summary{list-style:none;cursor:pointer;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+details.day::before{content:attr(data-d);position:absolute;left:0;top:10px;width:32px;height:32px;border-radius:50%;background:var(--card);border:2px solid var(--line);color:var(--glacier);font-family:'Barlow Condensed';font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;z-index:1;box-shadow:0 2px 6px rgba(80,65,30,.1)}
+details.day[data-must]::before{border-color:var(--bro-bright);color:var(--bro);background:#fdf6df}
+summary{list-style:none;cursor:pointer;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;box-shadow:0 3px 10px rgba(80,65,30,.09)}
 summary::-webkit-details-marker{display:none}
-details[open] summary{border-bottom-left-radius:0;border-bottom-right-radius:0;border-bottom-color:transparent}
-.d-date{font-size:11px;color:var(--sand-dim);letter-spacing:.08em;text-transform:uppercase}
-.d-title{font-family:'Barlow Condensed';font-weight:600;font-size:19px;color:#fff;line-height:1.15;margin-top:1px}
+summary:active{transform:scale(.995)}
+details[open] summary{border-bottom-left-radius:0;border-bottom-right-radius:0;border-bottom-color:transparent;box-shadow:none}
+.d-date{font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.d-title{font-family:'Barlow Condensed';font-weight:600;font-size:19px;color:var(--ink);line-height:1.15;margin-top:1px}
 .d-meta{font-size:12.5px;color:var(--glacier);margin-top:3px}
 .badge{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.06em;border-radius:6px;padding:2px 7px;margin-left:6px;vertical-align:2px}
-.badge.must{background:var(--bro);color:#1a1405}
-.badge.easy{background:#173423;color:var(--flag-green)}
-.badge.mod{background:#33290d;color:var(--bro)}
-.badge.hard{background:#3a1815;color:var(--flag-red)}
-.d-body{background:var(--card);border:1px solid var(--line);border-top:none;border-radius:0 0 14px 14px;padding:4px 14px 14px}
+.badge.must{background:var(--bro-bright);color:#3d2f00}
+.badge.easy{background:#e3f2e9;color:var(--flag-green)}
+.badge.mod{background:#faeec9;color:#8a6800}
+.badge.hard{background:#fae4e1;color:var(--flag-red)}
+.d-body{background:var(--card);border:1px solid var(--line);border-top:none;border-radius:0 0 14px 14px;padding:4px 14px 14px;box-shadow:0 4px 12px rgba(80,65,30,.09)}
 .d-body p{margin:8px 0;font-size:14px}
-.d-body .sec{font-family:'Barlow Condensed';font-weight:600;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--sand-dim);margin-top:12px}
+.d-body .sec{font-family:'Barlow Condensed';font-weight:600;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:12px}
 .fuel{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
-.fuel span{background:#2b2413;border:1px solid #5c4d1c;color:var(--fuel);border-radius:999px;padding:4px 10px;font-size:12px;font-weight:500}
-.warn{margin-top:10px;background:#2c1a18;border-left:3px solid var(--flag-red);border-radius:0 10px 10px 0;padding:8px 11px;font-size:12.5px;color:#f2c1bc}
-.tip{margin-top:10px;background:#14283a;border-left:3px solid var(--glacier);border-radius:0 10px 10px 0;padding:8px 11px;font-size:12.5px;color:#cfe8f0}
+.fuel span{background:var(--fuel-bg);border:1px solid var(--fuel-bd);color:var(--fuel-tx);border-radius:999px;padding:4px 10px;font-size:12px;font-weight:500}
+.warn{margin-top:10px;background:#fdf0ee;border-left:3px solid var(--flag-red);border-radius:0 10px 10px 0;padding:8px 11px;font-size:12.5px;color:#7d2c25}
+.tip{margin-top:10px;background:#e9f4f9;border-left:3px solid var(--glacier);border-radius:0 10px 10px 0;padding:8px 11px;font-size:12.5px;color:#1e5a74}
+
+/* ---------- stays ---------- */
+.stays{margin-top:14px}
+.stays-h{font-family:'Barlow Condensed';font-weight:700;font-size:20px;color:var(--ink);margin-bottom:8px}
+.stay{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:8px;box-shadow:0 3px 10px rgba(80,65,30,.09)}
+.stay .s-town{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--glacier)}
+.stay .s-name{font-family:'Barlow Condensed';font-weight:600;font-size:19px;color:var(--ink)}
+.stay .s-dates{font-size:12.5px;color:var(--muted);margin-top:1px}
+.stay .s-money{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.stay .s-money span{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:4px 9px;font-size:12px;color:var(--muted)}
+.stay .s-money b{color:var(--bro)}
+.stay .s-money .paid b{color:var(--flag-green)}
+.stay .s-links{display:flex;gap:8px;margin-top:10px}
+.stay .s-links a{flex:1;text-align:center;text-decoration:none;font-family:'Barlow Condensed';font-weight:600;font-size:15px;letter-spacing:.03em;border-radius:10px;padding:9px 8px}
+.stay .s-links a.call{background:#e3f2e9;color:var(--flag-green);border:1px solid #bcdccb}
+.stay .s-links a.map{background:#e9f4f9;color:var(--glacier);border:1px solid #c2dfec}
+.stay .s-links a.nonum{background:var(--paper);color:var(--muted);border:1px dashed var(--line);pointer-events:none}
+.pay-total{background:#fdf6df;border:1px solid var(--fuel-bd);border-radius:12px;padding:10px 14px;font-size:13px;margin-bottom:8px;color:var(--ink)}
+.pay-total b{color:var(--bro)}
 
 /* ---------- essentials ---------- */
-.essentials{margin-top:34px}
-.essentials h2{font-family:'Barlow Condensed';font-weight:700;font-size:24px;color:#fff;margin-bottom:8px}
-details.ess{background:var(--sky2);border:1px solid var(--line);border-radius:12px;margin-bottom:8px}
-details.ess summary{background:none;border:none;padding:12px 14px;font-family:'Barlow Condensed';font-weight:600;font-size:17px;color:var(--sand)}
-details.ess .d-body{background:none;border:none;padding:0 14px 12px}
-details.ess .d-body p, details.ess .d-body li{font-size:13.5px;margin:6px 0;color:var(--sand)}
+.essentials{margin-top:14px}
+.essentials h2{font-family:'Barlow Condensed';font-weight:700;font-size:24px;color:var(--ink);margin-bottom:8px}
+details.ess{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:8px;box-shadow:0 3px 10px rgba(80,65,30,.08)}
+details.ess summary{background:none;border:none;padding:12px 14px;font-family:'Barlow Condensed';font-weight:600;font-size:17px;color:var(--ink);box-shadow:none}
+details.ess .d-body{background:none;border:none;padding:0 14px 12px;box-shadow:none}
+details.ess .d-body p, details.ess .d-body li{font-size:13.5px;margin:6px 0;color:var(--ink)}
 details.ess ul{padding-left:18px}
-footer{margin-top:30px;font-size:12px;color:var(--sand-dim);text-align:center}
+footer{margin-top:30px;font-size:12px;color:var(--muted);text-align:center}
+
+/* ---------- extras ---------- */
+.roadline{height:10px;margin:26px 0 8px;border-radius:5px;background:#dcd2b8;position:relative}
+.roadline::after{content:"";position:absolute;left:4%;right:4%;top:4px;height:2px;background:repeating-linear-gradient(90deg,var(--bro) 0 14px,transparent 14px 30px);opacity:.5;border-radius:1px}
+.quickbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;gap:6px;background:rgba(255,253,247,.92);backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:8px 10px calc(8px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(80,65,30,.1)}
+.quickbar a{flex:1;text-align:center;text-decoration:none;font-family:'Barlow Condensed';font-weight:600;font-size:14px;letter-spacing:.05em;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:8px 4px}
+.quickbar a b{display:block;font-size:16px;line-height:1.1}
 </style>
 </head>
 <body>
 <div class="wrap">
 
 <header>
-  <div class="eyebrow">Ladakh · Motorcycle · 21–29 Jul 2026</div>
-  <h1>LEH → LEH <span class="yellow">×6 ROUTES</span></h1>
-  <div class="dates">Fixed stays: Zostel Leh · Nubra Holiday · Peaceful Home Stay (Merak) · Padma Home Stay (Hanle) · Tushita Ladakh</div>
+<div class="hero">
+  <img id="heroimg" src="https://commons.wikimedia.org/wiki/Special:FilePath/Leh%2C_Ladakh%2C_India.jpg?width=1400"
+       alt="View over Leh town and the Ladakh range"
+       onerror="this.style.display='none';document.getElementById('herosvg').style.display='block';document.querySelector('.photo-credit').style.display='none'">
+  <svg id="herosvg" style="display:none" viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <defs><linearGradient id="skyg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#bcd9ea"/><stop offset="60%" stop-color="#dcebf2"/><stop offset="100%" stop-color="#e9e2cd"/>
+    </linearGradient></defs>
+    <rect width="400" height="240" fill="url(#skyg)"/>
+    <circle cx="338" cy="46" r="16" fill="#fff" opacity=".9"/>
+    <path d="M0 140 L45 98 L78 122 L120 82 L158 118 L200 74 L238 112 L278 86 L318 120 L360 94 L400 128 L400 240 L0 240 Z" fill="#9fb3c4"/>
+    <path d="M120 82 L131 93 L124 94 L115 89 Z M200 74 L212 86 L203 88 L193 82 Z" fill="#fff" opacity=".9"/>
+    <path d="M0 175 L52 130 L96 158 L142 116 L188 154 L232 124 L280 160 L330 132 L400 170 L400 240 L0 240 Z" fill="#7e94a8"/>
+    <path d="M0 212 L60 180 L120 204 L190 176 L260 206 L320 184 L400 210 L400 240 L0 240 Z" fill="#5d7286"/>
+    <path d="M186 240 C 200 222, 230 216, 268 208" stroke="#4a5c6d" stroke-width="7" fill="none" stroke-linecap="round"/>
+    <path d="M186 240 C 200 222, 230 216, 268 208" stroke="#f5c518" stroke-width="1" fill="none" stroke-dasharray="5 6" opacity=".8"/>
+  </svg>
+  <div class="shade"></div>
+  <a class="photo-credit" href="https://commons.wikimedia.org/wiki/File:Leh,_Ladakh,_India.jpg" target="_blank" rel="noopener">📷 V. Argenberg · CC BY 4.0</a>
+  <div class="hero-txt">
+    <div class="eyebrow">Ladakh · Motorcycle · 21–29 Jul 2026</div>
+    <h1>LEH → LEH <span class="yellow">×6 ROUTES</span></h1>
+    <div class="dates">9 days · 5 riders · Khardung La to Umling La</div>
+  </div>
+</div>
+<div class="postcard">
   <div class="route-strip">
     <span>Leh 2N</span><span class="arrow">→</span>
     <span>Nubra 1N</span><span class="arrow">→</span>
@@ -128,7 +172,9 @@ footer{margin-top:30px;font-size:12px;color:var(--sand-dim);text-align:center}
     <span>Hanle 2N</span><span class="arrow">→</span>
     <span>Leh 2N</span>
   </div>
+  <div class="dates" style="margin-top:8px">Fixed stays: Zostel Leh · Nubra Holiday · Peaceful Home Stay (Merak) · Padma Home Stay (Hanle) · Tushita Ladakh</div>
   <div class="mustdo">🏔️ <b>Umling La (~5,798 m) is Day 6 in every option — planned, not optional.</b> Start 5–6 AM from Hanle, full tank + 5 L spare, back by 2 PM. Only bail if the army closes the road or heavy rain hits overnight.</div>
+</div>
 </header>
 
 <nav class="tabs" id="tabs">
@@ -828,6 +874,7 @@ footer{margin-top:30px;font-size:12px;color:var(--sand-dim);text-align:center}
 </section>
 
 <!-- ================= ESSENTIALS ================= -->
+<div class="roadline"></div>
 <div class="stays" id="stays">
   <div class="stays-h">🏠 Stays &amp; Bookings — all confirmed · 5 travellers</div>
   <div class="pay-total">Total <b>₹36,349</b> · Advance paid <b>₹14,145</b> · <b>Balance due ₹22,205</b> — settle in cash at each stay (no network/UPI beyond Karu)</div>
@@ -895,10 +942,11 @@ footer{margin-top:30px;font-size:12px;color:var(--sand-dim);text-align:center}
     </div>
   </div>
 </div>
-<div class="essentials">
+<div class="roadline"></div>
+<div class="essentials" id="ess">
   <h2>Trip Essentials</h2>
 
-  <details class="ess">
+  <details class="ess" id="ess-fuel">
     <summary>⛽ Fuel map — every working pump</summary>
     <div class="d-body">
       <ul>
@@ -977,5 +1025,12 @@ tabs.forEach(t=>t.addEventListener('click',()=>{
   window.scrollTo({top:0});
 }));
 </script>
+
+<nav class="quickbar" aria-label="Quick navigation">
+  <a href="#tabs"><b>🛣️</b>Routes</a>
+  <a href="#stays"><b>🏠</b>Stays ☎</a>
+  <a href="#ess-fuel"><b>⛽</b>Fuel</a>
+  <a href="#ess"><b>🎒</b>Essentials</a>
+</nav>
 </body>
 </html>
