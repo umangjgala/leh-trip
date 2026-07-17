@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leh → Leh · 5 Route Options · 21–29 Jul 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sky:#101a2b;        /* Hanle night sky */
+  --sky2:#16233a;
+  --card:#1b2a44;
+  --sand:#e8dcc3;       /* cold-desert sand */
+  --sand-dim:#b8ad97;
+  --bro:#f5c518;        /* BRO milestone yellow */
+  --glacier:#7fc4d8;    /* glacial blue */
+  --flag-red:#e2584d;
+  --flag-green:#5fae7f;
+  --line:#31456b;
+  --fuel:#ffb84d;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{background:var(--sky);color:var(--sand);font-family:'Inter',system-ui,sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:640px;margin:0 auto;padding:0 14px 60px}
+
+/* ---------- header ---------- */
+header{padding:26px 0 14px;text-align:left}
+.eyebrow{font-family:'Barlow Condensed';font-weight:600;letter-spacing:.18em;text-transform:uppercase;font-size:13px;color:var(--glacier)}
+h1{font-family:'Barlow Condensed';font-weight:700;font-size:34px;line-height:1.05;margin:6px 0 4px;color:#fff}
+h1 .yellow{color:var(--bro)}
+.dates{color:var(--sand-dim);font-size:13.5px}
+.route-strip{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px}
+.route-strip span{background:var(--sky2);border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:12px;color:var(--sand)}
+.route-strip .arrow{border:none;background:none;color:var(--glacier);padding:4px 0}
+.mustdo{margin-top:12px;background:linear-gradient(90deg,#3a2b10,#2a2410);border:1px solid var(--bro);border-radius:12px;padding:10px 12px;font-size:13px}
+.mustdo b{color:var(--bro)}
+
+/* ---------- tabs ---------- */
+.tabs{position:sticky;top:0;z-index:20;background:linear-gradient(var(--sky) 85%,transparent);padding:10px 0 8px;display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;font-family:'Barlow Condensed';font-weight:600;font-size:15px;letter-spacing:.03em;background:var(--sky2);color:var(--sand-dim);border:1px solid var(--line);border-radius:10px;padding:8px 13px;cursor:pointer;white-space:nowrap}
+.tab.active{background:var(--bro);color:#1a1405;border-color:var(--bro)}
+
+/* ---------- option panel ---------- */
+.panel{display:none}
+.panel.active{display:block}
+.opt-head{margin:10px 0 4px}
+.opt-title{font-family:'Barlow Condensed';font-weight:700;font-size:26px;color:#fff;line-height:1.1}
+.opt-sub{color:var(--sand-dim);font-size:13.5px;margin-top:3px}
+.stats{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0 4px}
+.stat{background:var(--sky2);border:1px solid var(--line);border-radius:10px;padding:7px 11px;font-size:12.5px}
+.stat b{display:block;font-family:'Barlow Condensed';font-size:17px;font-weight:600;color:var(--glacier);letter-spacing:.02em}
+.stat.diff-easy b{color:var(--flag-green)}
+.stat.diff-mod b{color:var(--bro)}
+.stat.diff-hard b{color:var(--flag-red)}
+.fuelroute{margin:8px 0 0;background:#1f1a0c;border:1px dashed #5c4d1c;border-radius:10px;padding:8px 11px;font-size:12px;color:var(--fuel);line-height:1.7}
+.fuelroute b{color:#fff;font-weight:600}
+.fuelroute .lbl{font-family:'Barlow Condensed';font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:11px;color:var(--sand-dim);display:block;margin-bottom:2px}
+/* ---------- stays ---------- */
+.stays{margin-top:14px}
+.stays-h{font-family:'Barlow Condensed';font-weight:700;font-size:20px;color:#fff;margin-bottom:8px}
+.stay{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:8px}
+.stay .s-town{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--glacier)}
+.stay .s-name{font-family:'Barlow Condensed';font-weight:600;font-size:19px;color:#fff}
+.stay .s-dates{font-size:12.5px;color:var(--sand-dim);margin-top:1px}
+.stay .s-money{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.stay .s-money span{background:var(--sky2);border:1px solid var(--line);border-radius:8px;padding:4px 9px;font-size:12px}
+.stay .s-money b{color:var(--bro)}
+.stay .s-money .paid b{color:var(--flag-green)}
+.stay .s-links{display:flex;gap:8px;margin-top:10px}
+.stay .s-links a{flex:1;text-align:center;text-decoration:none;font-family:'Barlow Condensed';font-weight:600;font-size:15px;letter-spacing:.03em;border-radius:10px;padding:9px 8px}
+.stay .s-links a.call{background:#173423;color:var(--flag-green);border:1px solid #2b5b41}
+.stay .s-links a.map{background:#14283a;color:var(--glacier);border:1px solid #2b567a}
+.stay .s-links a.nonum{background:var(--sky2);color:var(--sand-dim);border:1px dashed var(--line);pointer-events:none}
+.pay-total{background:linear-gradient(90deg,#2a2410,#1f1a0c);border:1px solid #5c4d1c;border-radius:12px;padding:10px 14px;font-size:13px;margin-bottom:8px}
+.pay-total b{color:var(--bro)}
+
+/* ---------- day timeline ---------- */
+.days{margin-top:14px;position:relative}
+.days::before{content:"";position:absolute;left:15px;top:8px;bottom:8px;width:2px;background:repeating-linear-gradient(var(--line) 0 8px,transparent 8px 14px)}
+details.day{position:relative;margin:0 0 10px 0;padding-left:38px}
+details.day::before{content:attr(data-d);position:absolute;left:0;top:10px;width:32px;height:32px;border-radius:50%;background:var(--sky2);border:2px solid var(--line);color:var(--glacier);font-family:'Barlow Condensed';font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;z-index:1}
+details.day[data-must]::before{border-color:var(--bro);color:var(--bro);background:#241d08}
+summary{list-style:none;cursor:pointer;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+summary::-webkit-details-marker{display:none}
+details[open] summary{border-bottom-left-radius:0;border-bottom-right-radius:0;border-bottom-color:transparent}
+.d-date{font-size:11px;color:var(--sand-dim);letter-spacing:.08em;text-transform:uppercase}
+.d-title{font-family:'Barlow Condensed';font-weight:600;font-size:19px;color:#fff;line-height:1.15;margin-top:1px}
+.d-meta{font-size:12.5px;color:var(--glacier);margin-top:3px}
+.badge{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.06em;border-radius:6px;padding:2px 7px;margin-left:6px;vertical-align:2px}
+.badge.must{background:var(--bro);color:#1a1405}
+.badge.easy{background:#173423;color:var(--flag-green)}
+.badge.mod{background:#33290d;color:var(--bro)}
+.badge.hard{background:#3a1815;color:var(--flag-red)}
+.d-body{background:var(--card);border:1px solid var(--line);border-top:none;border-radius:0 0 14px 14px;padding:4px 14px 14px}
+.d-body p{margin:8px 0;font-size:14px}
+.d-body .sec{font-family:'Barlow Condensed';font-weight:600;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--sand-dim);margin-top:12px}
+.fuel{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.fuel span{background:#2b2413;border:1px solid #5c4d1c;color:var(--fuel);border-radius:999px;padding:4px 10px;font-size:12px;font-weight:500}
+.warn{margin-top:10px;background:#2c1a18;border-left:3px solid var(--flag-red);border-radius:0 10px 10px 0;padding:8px 11px;font-size:12.5px;color:#f2c1bc}
+.tip{margin-top:10px;background:#14283a;border-left:3px solid var(--glacier);border-radius:0 10px 10px 0;padding:8px 11px;font-size:12.5px;color:#cfe8f0}
+
+/* ---------- essentials ---------- */
+.essentials{margin-top:34px}
+.essentials h2{font-family:'Barlow Condensed';font-weight:700;font-size:24px;color:#fff;margin-bottom:8px}
+details.ess{background:var(--sky2);border:1px solid var(--line);border-radius:12px;margin-bottom:8px}
+details.ess summary{background:none;border:none;padding:12px 14px;font-family:'Barlow Condensed';font-weight:600;font-size:17px;color:var(--sand)}
+details.ess .d-body{background:none;border:none;padding:0 14px 12px}
+details.ess .d-body p, details.ess .d-body li{font-size:13.5px;margin:6px 0;color:var(--sand)}
+details.ess ul{padding-left:18px}
+footer{margin-top:30px;font-size:12px;color:var(--sand-dim);text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">Ladakh · Motorcycle · 21–29 Jul 2026</div>
+  <h1>LEH → LEH <span class="yellow">×6 ROUTES</span></h1>
+  <div class="dates">Fixed stays: Zostel Leh · Nubra Holiday · Peaceful Home Stay (Merak) · Padma Home Stay (Hanle) · Tushita Ladakh</div>
+  <div class="route-strip">
+    <span>Leh 2N</span><span class="arrow">→</span>
+    <span>Nubra 1N</span><span class="arrow">→</span>
+    <span>Merak 1N</span><span class="arrow">→</span>
+    <span>Hanle 2N</span><span class="arrow">→</span>
+    <span>Leh 2N</span>
+  </div>
+  <div class="mustdo">🏔️ <b>Umling La (~5,798 m) is Day 6 in every option — planned, not optional.</b> Start 5–6 AM from Hanle, full tank + 5 L spare, back by 2 PM. Only bail if the army closes the road or heavy rain hits overnight.</div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button class="tab active" data-p="p1">1 · Classic Passes</button>
+  <button class="tab" data-p="p2">2 · Monastery Circuit</button>
+  <button class="tab" data-p="p3">3 · All-Passes Grand Slam</button>
+  <button class="tab" data-p="p4">4 · Lakes &amp; Dark Sky</button>
+  <button class="tab" data-p="p5">5 · Turtuk Frontier</button>
+  <button class="tab" data-p="p6">6 · Tso Moriri Finale</button>
+</nav>
+
+<!-- ================= OPTION 1 ================= -->
+<section class="panel active" id="p1">
+  <div class="opt-head">
+    <div class="opt-title">Classic Passes + Umling La</div>
+    <div class="opt-sub">Recommended. Max tarmac, min drama — the smoothest way to still bag Umling La.</div>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>~1,300 km</b>total riding</div>
+    <div class="stat diff-mod"><b>Moderate</b>difficulty</div>
+    <div class="stat"><b>Khardung La</b>+ Umling La</div>
+  </div>
+  <div class="fuelroute"><span class="lbl">⛽ Fuel route</span><b>Leh</b> (full) → <b>Diskit</b> → <b>Tangtse</b> (full) → Hanle black (reserve) → Umling La on tank+5L → <b>Nyoma</b> (full) → <b>Karu</b> → <b>Leh</b></div>
+  <div class="days">
+
+    <details class="day" data-d="1–2">
+      <summary>
+        <div class="d-date">Tue 21 – Wed 22 Jul · Zostel Leh</div>
+        <div class="d-title">Leh · Acclimatize <span class="badge easy">EASY</span></div>
+        <div class="d-meta">Day 2: Shanti Stupa + flat ride to Sangam / Magnetic Hill (~70 km)</div>
+      </summary>
+      <div class="d-body">
+        <p>Day 1 full rest — the 48-hr rule is system-enforced; the permit portal won't issue your fee receipt earlier. Day 2 keep it flat and gentle: Magnetic Hill, Gurudwara Pathar Sahib, Indus–Zanskar Sangam.</p>
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>Leh main pump (IOC, near bazaar)</span><span>Choglamsar pump</span><span>Fill FULL tank evening of Day 2</span></div>
+        <div class="tip">Apply for the Environment Fee at lahdclehpermit.in on Day 2 — tick Nubra, Pangong, Hanle AND Umling La circuits. Print 8–10 copies.</div>
+      </div>
+    </details>
+
+    <details class="day" data-d="3">
+      <summary>
+        <div class="d-date">Thu 23 Jul · Nubra Holiday</div>
+        <div class="d-title">Leh → Nubra via Khardung La <span class="badge easy">EASY</span></div>
+        <div class="d-meta">~120 km · 4–5 h · leave by 7–8 AM (uphill window 9 AM–1 PM)</div>
+      </summary>
+      <div class="d-body">
+        <p>Paved to South Pullu; broken/slushy over the top to North Pullu; good road down via Khalsar. Stops: Khardung La summit (max 10–15 min), Diskit Monastery (32 m Maitreya), Hunder dunes at sunset.</p>
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>Start FULL from Leh</span><span>Diskit pump — only pump in Nubra, top up even if half-full</span></div>
+        <div class="warn">Diskit pump occasionally runs dry — carry a 5 L reserve from Leh.</div>
+      </div>
+    </details>
+
+    <details class="day" data-d="4">
+      <summary>
+        <div class="d-date">Fri 24 Jul · Peaceful Home Stay</div>
+        <div class="d-title">Nubra → Merak via Shyok road <span class="badge mod">MODERATE</span></div>
+        <div class="d-meta">~160 km · 5–7 h · cross water before 11 AM</div>
+      </summary>
+      <div class="d-body">
+        <p>Agham–Shyok direct road: mostly paved with new bridges, 2–3 water crossings on the Agham stretch. Then the Pangong shoreline: Lukung → Spangmik → Man → Merak.</p>
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>Top up Diskit before leaving</span><span>ZERO fuel on Shyok road</span><span>Tangtse pump (34 km before Pangong) — fill FULL here for Day 5</span></div>
+        <div class="warn">July flood risk: check Shyok status at Khalsar/Agham that morning. If shut, fall back to Leh → Chang La (paved, longer) — avoid Wari La on this option.</div>
+      </div>
+    </details>
+
+    <details class="day" data-d="5">
+      <summary>
+        <div class="d-date">Sat 25 Jul · Padma Home Stay</div>
+        <div class="d-title">Merak → Hanle via Chushul–Rezang La <span class="badge mod">MODERATE</span></div>
+        <div class="d-meta">~160 km · 6–7 h · dirt near Chushul, tarmac after Tsaga</div>
+      </summary>
+      <div class="d-body">
+        <p>Merak → Chushul → Rezang La War Memorial → Tsaga La → Loma checkpost → Hanle. Rough riverbed patches near Chushul; good BRO tarmac from Tsaga.</p>
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>Ride out FULL from Tangtse fill</span><span>No pump Merak–Loma</span><span>Nyoma pump = 50 km detour; skip if tank full</span><span>Hanle: homestay keeps petrol in black — book 5 L for Day 6</span></div>
+        <div class="tip">Message Padma Home Stay ahead to reserve spare petrol for the Umling La run. Confirm Umling La access with the army at Loma checkpost today.</div>
+      </div>
+    </details>
+
+    <details class="day" data-d="6" data-must>
+      <summary>
+        <div class="d-date">Sun 26 Jul · Padma Home Stay</div>
+        <div class="d-title">UMLING LA DAY <span class="badge must">MUST DO</span></div>
+        <div class="d-meta">~150 km round trip · 8–9 h · depart 5–6 AM, summit by 11, back by 2 PM</div>
+      </summary>
+      <div class="d-body">
+        <p>Hanle → Photi La → Umling La (~5,798 m). Final climb is sealed tarmac; the Photi La approach is steep loose gravel with glacial-melt streams that swell after noon — hence the dawn start. 10–15 min max at the summit; carry portable oxygen.</p>
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>FULL tank from Hanle (black)</span><span>+5 L strapped spare</span><span>NOTHING beyond Hanle</span><span>Expect 30–40% mileage loss at altitude</span></div>
+        <div class="warn">Army at Loma/Photi La can turn civilians back without notice. Evening backup if bailed: observatory (3:30–5:30 PM slot) + Dark Sky stargazing.</div>
+      </div>
+    </details>
+
+    <details class="day" data-d="7">
+      <summary>
+        <div class="d-date">Mon 27 Jul · Tushita Ladakh</div>
+        <div class="d-title">Hanle → Leh via Chumathang <span class="badge easy">EASY</span></div>
+        <div class="d-meta">~275 km · 8–10 h · almost all paved</div>
+      </summary>
+      <div class="d-body">
+        <p>Hanle → Loma → Nyoma → Mahe → Chumathang hot springs → Upshi → Karu → Leh. Fast BRO tarmac; watch the sneaky drainage dips.</p>
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>Nyoma pump — fill FULL</span><span>Karu pump (35 km before Leh) — top up if needed</span><span>Leh pumps on arrival</span></div>
+      </div>
+    </details>
+
+    <details class="day" data-d="8">
+      <summary>
+        <div class="d-date">Tue 28 Jul · Tushita Ladakh</div>
+        <div class="d-title">Leh spare day · Indus monastery circuit <span class="badge easy">EASY</span></div>
+        <div class="d-meta">Shey → Thiksey → Hemis (+ Stakna) · ~100 km · all paved</div>
+      </summary>
+      <div class="d-body">
+        <p>Relaxed loop; Thiksey before 9 AM for morning prayers. Souvenir + bike-return admin in the evening.</p>
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>Leh pumps</span><span>Karu pump en route if needed</span></div>
+      </div>
+    </details>
+
+    <details class="day" data-d="9">
+      <summary>
+        <div class="d-date">Wed 29 Jul</div>
+        <div class="d-title">Depart Leh ✈️</div>
+        <div class="d-meta">Tushita check-out 12 PM</div>
+      </summary>
+      <div class="d-body"><p>Return the bike with a full tank if the rental requires it — fill at the Leh pump on the way.</p></div>
+    </details>
+
+  </div>
+</section>
+
+<!-- ================= OPTION 2 ================= -->
+<section class="panel" id="p2">
+  <div class="opt-head">
+    <div class="opt-title">Monastery Circuit + Umling La</div>
+    <div class="opt-sub">Same smooth roads as Option 1, with the culture dialled up on every stop.</div>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>~1,280 km</b>total riding</div>
+    <div class="stat diff-mod"><b>Moderate</b>difficulty</div>
+    <div class="stat"><b>6 gompas</b>+ Umling La</div>
+  </div>
+  <div class="fuelroute"><span class="lbl">⛽ Fuel route</span><b>Leh</b> (full) → <b>Diskit</b> → <b>Tangtse</b> (full) → Hanle black (reserve) → Umling La on tank+5L → <b>Nyoma</b> (full) → <b>Karu</b> → <b>Leh</b> · Sham day: <b>Nimmu/Khaltse</b></div>
+  <div class="days">
+
+    <details class="day" data-d="1–2">
+      <summary>
+        <div class="d-date">Tue–Wed · Zostel Leh</div>
+        <div class="d-title">Leh · Acclimatize + Spituk <span class="badge easy">EASY</span></div>
+        <div class="d-meta">Day 2: Spituk Monastery + Shanti Stupa + old town (~30 km)</div>
+      </summary>
+      <div class="d-body">
+        <p>Low-exertion culture start: Spituk gompa above the Indus, Leh Palace lanes, Shanti Stupa at sunset.</p>
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>Leh main pump</span><span>Choglamsar pump</span><span>Fill FULL Day-2 evening</span></div>
+        <div class="tip">Permits at lahdclehpermit.in — tick all circuits incl. Umling La. 8–10 printed copies.</div>
+      </div>
+    </details>
+
+    <details class="day" data-d="3">
+      <summary>
+        <div class="d-date">Thu · Nubra Holiday</div>
+        <div class="d-title">Leh → Nubra + Sumur &amp; Diskit gompas <span class="badge easy">EASY</span></div>
+        <div class="d-meta">~140 km with Sumur detour · 5–6 h</div>
+      </summary>
+      <div class="d-body">
+        <p>Khardung La crossing, then Samstanling Monastery (Sumur) and optional short hike to sacred Yarab Tso, before Diskit Monastery's Maitreya at golden hour.</p>
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>Start FULL from Leh</span><span>Diskit pump — top up</span><span>Carry 5 L reserve</span></div>
+      </div>
+    </details>
+
+    <details class="day" data-d="4">
+      <summary>
+        <div class="d-date">Fri · Peaceful Home Stay</div>
+        <div class="d-title">Nubra → Merak via Shyok <span class="badge mod">MODERATE</span></div>
+        <div class="d-meta">~160 km · 5–7 h · water crossings before 11 AM</div>
+      </summary>
+      <div class="d-body">
+        <p>Same crux as Option 1. Pangong shoreline villages; evening light on the lake from Merak is the payoff.</p>
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>Diskit top-up before leaving</span><span>No fuel on Shyok</span><span>Tangtse — fill FULL</span></div>
+        <div class="warn">Shyok flooded? Fall back via Leh + Chang La (paved).</div>
+      </div>
+    </details>
+
+    <details class="day" data-d="5">
+      <summary>
+        <div class="d-date">Sat · Padma Home Stay</div>
+        <div class="d-title">Merak → Hanle + Hanle Gompa <span class="badge mod">MODERATE</span></div>
+        <div class="d-meta">~160 km · 6–7 h · 17th-c. Drukpa monastery at sunset</div>
+      </summary>
+      <div class="d-body">
+        <p>Chushul → Rezang La memorial → Tsaga → Loma → Hanle, arriving in time for the hilltop Hanle Monastery — fort-gompa views over the Changthang at dusk are the day's highlight.</p>
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>Run on Tangtse fill</span><span>Nyoma pump = optional 50 km detour</span><span>Reserve 5 L black petrol at homestay for Day 6</span></div>
+      </div>
+    </details>
+
+    <details class="day" data-d="6" data-must>
+      <summary>
+        <div class="d-date">Sun · Padma Home Stay</div>
+        <div class="d-title">UMLING LA DAY <span class="badge must">MUST DO</span></div>
+        <div class="d-meta">~150 km RT · dawn start · observatory slot 3:30–5:30 PM after return</div>
+      </summary>
+      <div class="d-body">
+        <p>Summit run in the morning; if you're back by 2–3 PM, add the Indian Astronomical Observatory visit and night stargazing — this option uniquely stacks Umling La + the Dark Sky evening in one day.</p>
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>FULL tank (Hanle black)</span><span>+5 L spare</span><span>No fuel beyond Hanle</span></div>
+        <div class="warn">Weather-gated: dry skies + army clearance at Loma required. Dawn departure non-negotiable.</div>
+      </div>
+    </details>
+
+    <details class="day" data-d="7">
+      <summary>
+        <div class="d-date">Mon · Tushita Ladakh</div>
+        <div class="d-title">Hanle → Leh via Chumathang <span class="badge easy">EASY</span></div>
+        <div class="d-meta">~275 km · 8–10 h · hot springs lunch stop</div>
+      </summary>
+      <div class="d-body">
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>Nyoma — fill FULL</span><span>Karu top-up</span><span>Leh pumps</span></div>
+      </div>
+    </details>
+
+    <details class="day" data-d="8">
+      <summary>
+        <div class="d-date">Tue · Tushita Ladakh</div>
+        <div class="d-title">Sham Valley: Alchi–Likir–Basgo <span class="badge easy">EASY</span></div>
+        <div class="d-meta">~120 km each way on Srinagar highway · all paved</div>
+      </summary>
+      <div class="d-body">
+        <p>The culture finale: Alchi's 10th–11th-century murals, Likir's giant Maitreya, Basgo Fort, Magnetic Hill and Sangam on the way back.</p>
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>Leh — fill before leaving</span><span>Nimmu/Khaltse pumps en route if needed</span></div>
+      </div>
+    </details>
+
+    <details class="day" data-d="9">
+      <summary><div class="d-date">Wed</div><div class="d-title">Depart Leh ✈️</div><div class="d-meta">Check-out 12 PM</div></summary>
+      <div class="d-body"><p>Fill tank at Leh pump before bike return if required.</p></div>
+    </details>
+
+  </div>
+</section>
+
+<!-- ================= OPTION 3 ================= -->
+<section class="panel" id="p3">
+  <div class="opt-head">
+    <div class="opt-title">All-Passes Grand Slam</div>
+    <div class="opt-sub">Khardung La + Wari La + Chang La + Umling La. The hardest option — only if you're confident off tarmac.</div>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>~1,420 km</b>total riding</div>
+    <div class="stat diff-hard"><b>Hard</b>difficulty</div>
+    <div class="stat"><b>4 passes</b>17,400 ft+</div>
+  </div>
+  <div class="fuelroute"><span class="lbl">⛽ Fuel route</span><b>Leh</b> (full+jerry) → <b>Diskit</b> (full+jerry) → Wari La on reserves → <b>Tangtse</b> (full) → Hanle black → Umling La on tank+5L → <b>Nyoma</b> (full) → <b>Karu</b> → <b>Leh</b></div>
+  <div class="days">
+
+    <details class="day" data-d="1–2">
+      <summary>
+        <div class="d-date">Tue–Wed · Zostel Leh</div>
+        <div class="d-title">Leh · Acclimatize hard <span class="badge easy">EASY</span></div>
+        <div class="d-meta">This option punishes poor acclimatization — rest properly</div>
+      </summary>
+      <div class="d-body">
+        <p>Full rest Day 1; short flat spin Day 2. Talk to a doctor about Diamox before the trip — you'll spend more hours above 17,000 ft than any other option.</p>
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>Leh pumps — FULL Day-2 evening</span><span>Buy/borrow a 5–10 L jerry can in Leh</span></div>
+      </div>
+    </details>
+
+    <details class="day" data-d="3">
+      <summary>
+        <div class="d-date">Thu · Nubra Holiday</div>
+        <div class="d-title">Leh → Nubra via Khardung La <span class="badge easy">EASY</span></div>
+        <div class="d-meta">~120 km · 4–5 h · dunes at sunset</div>
+      </summary>
+      <div class="d-body">
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>FULL from Leh</span><span>Diskit — top up + fill jerry can</span></div>
+      </div>
+    </details>
+
+    <details class="day" data-d="4">
+      <summary>
+        <div class="d-date">Fri · Peaceful Home Stay</div>
+        <div class="d-title">Nubra → Merak via WARI LA + Chang La <span class="badge hard">HARD</span></div>
+        <div class="d-meta">~250 km · 9–10 h · Wari La ~17,400 ft · earliest possible start</div>
+      </summary>
+      <div class="d-body">
+        <p>Agham → Tangyar → Wari La → Sakti → Chang La → Tangtse → Merak. Roughly 15 km tarmac / 40 km broken / 27 km loose scree on the Wari La leg, plus snow-melt streams and a 25–30 km stretch with no habitation. Two 17,000 ft+ passes in one day.</p>
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>Diskit FULL + jerry can — mandatory</span><span>ZERO fuel Agham→Sakti (~130 km rough)</span><span>Karu pump (short detour from Sakti) if needed</span><span>Tangtse — fill FULL</span></div>
+        <div class="warn">Only attempt dry. If it rained overnight, take the Shyok road (Option 1 routing) instead — Wari La mud is a trip-ender.</div>
+      </div>
+    </details>
+
+    <details class="day" data-d="5">
+      <summary>
+        <div class="d-date">Sat · Padma Home Stay</div>
+        <div class="d-title">Merak → Hanle via Rezang La <span class="badge mod">MODERATE</span></div>
+        <div class="d-meta">~160 km · 6–7 h</div>
+      </summary>
+      <div class="d-body">
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>Ride on Tangtse fill</span><span>Nyoma detour optional</span><span>Reserve black petrol at Padma Home Stay</span></div>
+      </div>
+    </details>
+
+    <details class="day" data-d="6" data-must>
+      <summary>
+        <div class="d-date">Sun · Padma Home Stay</div>
+        <div class="d-title">UMLING LA DAY <span class="badge must">MUST DO</span></div>
+        <div class="d-meta">~150 km RT · the fourth and highest pass · ~5,798 m</div>
+      </summary>
+      <div class="d-body">
+        <p>The Grand Slam finisher. Dawn start, sealed final climb, gravel Photi La approach. Portable oxygen strongly advised after the accumulated altitude fatigue of Day 4.</p>
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>FULL tank Hanle black</span><span>+5 L jerry can</span><span>Nothing beyond Hanle</span></div>
+        <div class="warn">If AMS symptoms appeared after Wari La day — skip the summit, do observatory + stargazing. No pass is worth HAPE at 19,000 ft.</div>
+      </div>
+    </details>
+
+    <details class="day" data-d="7">
+      <summary>
+        <div class="d-date">Mon · Tushita Ladakh</div>
+        <div class="d-title">Hanle → Leh via Chumathang <span class="badge easy">EASY</span></div>
+        <div class="d-meta">~275 km · recovery day on tarmac</div>
+      </summary>
+      <div class="d-body">
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>Nyoma FULL</span><span>Karu top-up</span><span>Leh pumps</span></div>
+      </div>
+    </details>
+
+    <details class="day" data-d="8">
+      <summary>
+        <div class="d-date">Tue · Tushita Ladakh</div>
+        <div class="d-title">Rest day / easy Thiksey–Hemis spin <span class="badge easy">EASY</span></div>
+        <div class="d-meta">You'll have earned it</div>
+      </summary>
+      <div class="d-body">
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>Leh pumps</span></div>
+      </div>
+    </details>
+
+    <details class="day" data-d="9">
+      <summary><div class="d-date">Wed</div><div class="d-title">Depart Leh ✈️</div><div class="d-meta">Check-out 12 PM</div></summary>
+      <div class="d-body"><p>Full tank at Leh pump for bike return if required.</p></div>
+    </details>
+
+  </div>
+</section>
+
+<!-- ================= OPTION 4 ================= -->
+<section class="panel" id="p4">
+  <div class="opt-head">
+    <div class="opt-title">Lakes, Dunes &amp; Dark Sky</div>
+    <div class="opt-sub">Scenic and relaxed: dunes at Hunder, maximum Pangong shoreline, Umling La at dawn, Milky Way at night.</div>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>~1,300 km</b>total riding</div>
+    <div class="stat diff-mod"><b>Moderate</b>difficulty</div>
+    <div class="stat"><b>Bortle 1</b>night skies</div>
+  </div>
+  <div class="fuelroute"><span class="lbl">⛽ Fuel route</span><b>Leh</b> (full) → <b>Diskit</b> → <b>Tangtse</b> (full) → Hanle black (reserve) → Umling La on tank+5L → <b>Nyoma</b> (full) → <b>Karu</b> → <b>Leh</b></div>
+  <div class="days">
+
+    <details class="day" data-d="1–2">
+      <summary>
+        <div class="d-date">Tue–Wed · Zostel Leh</div>
+        <div class="d-title">Leh · Acclimatize + Sangam <span class="badge easy">EASY</span></div>
+        <div class="d-meta">Day 2: flat ride to Indus–Zanskar confluence</div>
+      </summary>
+      <div class="d-body">
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>Leh pumps — FULL Day-2 evening</span></div>
+        <div class="tip">Check the moon phase — plan the Hanle stargazing around the darkest night of your window. Pack a red-light torch.</div>
+      </div>
+    </details>
+
+    <details class="day" data-d="3">
+      <summary>
+        <div class="d-date">Thu · Nubra Holiday</div>
+        <div class="d-title">Leh → Nubra · sunset at Hunder dunes <span class="badge easy">EASY</span></div>
+        <div class="d-meta">~120 km · Bactrian camel safari at golden hour</div>
+      </summary>
+      <div class="d-body">
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>FULL from Leh</span><span>Diskit top-up + 5 L reserve</span></div>
+      </div>
+    </details>
+
+    <details class="day" data-d="4">
+      <summary>
+        <div class="d-date">Fri · Peaceful Home Stay</div>
+        <div class="d-title">Nubra → Merak · max shoreline time <span class="badge mod">MODERATE</span></div>
+        <div class="d-meta">~160 km via Shyok · early start = lake colors by 1 PM</div>
+      </summary>
+      <div class="d-body">
+        <p>Push through Shyok early so the afternoon belongs to Pangong: Lukung → Spangmik → Man → Merak slowly, chasing the turquoise-to-indigo shift.</p>
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>Diskit before departure</span><span>No fuel on Shyok</span><span>Tangtse FULL</span></div>
+        <div class="warn">Shyok closed? Leh + Chang La fallback (paved).</div>
+      </div>
+    </details>
+
+    <details class="day" data-d="5">
+      <summary>
+        <div class="d-date">Sat · Padma Home Stay</div>
+        <div class="d-title">Merak → Hanle · wetland wildlife <span class="badge mod">MODERATE</span></div>
+        <div class="d-meta">~160 km · kiang &amp; black-necked cranes on the Changthang</div>
+      </summary>
+      <div class="d-body">
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>Tangtse fill carries you</span><span>Nyoma optional detour</span><span>Reserve black petrol at homestay</span></div>
+        <div class="tip">Warm-up stargazing tonight — but early night, dawn start tomorrow.</div>
+      </div>
+    </details>
+
+    <details class="day" data-d="6" data-must>
+      <summary>
+        <div class="d-date">Sun · Padma Home Stay</div>
+        <div class="d-title">UMLING LA DAWN + DARK SKY NIGHT <span class="badge must">MUST DO</span></div>
+        <div class="d-meta">Summit by 11 AM · observatory 3:30–5:30 PM · Milky Way after 9 PM</div>
+      </summary>
+      <div class="d-body">
+        <p>The signature day of this option: highest road at sunrise, one of the world's highest observatories in the afternoon, Bortle-1 Milky Way at night with a local astro-ambassador's telescope.</p>
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>FULL Hanle black tank</span><span>+5 L spare</span><span>Nothing beyond Hanle</span></div>
+        <div class="warn">Strict Dark Sky light rules at night — red torch only, headlight discipline near the observatory.</div>
+      </div>
+    </details>
+
+    <details class="day" data-d="7">
+      <summary>
+        <div class="d-date">Mon · Tushita Ladakh</div>
+        <div class="d-title">Hanle → Leh · Chumathang hot springs <span class="badge easy">EASY</span></div>
+        <div class="d-meta">~275 km · soak the riding muscles at the springs</div>
+      </summary>
+      <div class="d-body">
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>Nyoma FULL</span><span>Karu top-up</span><span>Leh pumps</span></div>
+      </div>
+    </details>
+
+    <details class="day" data-d="8">
+      <summary>
+        <div class="d-date">Tue · Tushita Ladakh</div>
+        <div class="d-title">Sham Valley or lazy monastery loop <span class="badge easy">EASY</span></div>
+        <div class="d-meta">Your pick — lakes are done, land the plane gently</div>
+      </summary>
+      <div class="d-body">
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>Leh pumps</span><span>Nimmu pump if riding Sham Valley</span></div>
+      </div>
+    </details>
+
+    <details class="day" data-d="9">
+      <summary><div class="d-date">Wed</div><div class="d-title">Depart Leh ✈️</div><div class="d-meta">Check-out 12 PM</div></summary>
+      <div class="d-body"><p>Fuel for bike return at Leh pump.</p></div>
+    </details>
+
+  </div>
+</section>
+
+<!-- ================= OPTION 5 ================= -->
+<section class="panel" id="p5">
+  <div class="opt-head">
+    <div class="opt-title">Turtuk Frontier + Umling La</div>
+    <div class="opt-sub">Longest and most varied: Balti villages near the LoC, then the Changthang and the summit. Tight schedule.</div>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>~1,470 km</b>total riding</div>
+    <div class="stat diff-hard"><b>Mod–Hard</b>long days</div>
+    <div class="stat"><b>Turtuk</b>+ Umling La</div>
+  </div>
+  <div class="fuelroute"><span class="lbl">⛽ Fuel route</span><b>Leh</b> (full) → <b>Diskit</b> (full, before &amp; after Turtuk) → <b>Tangtse</b> (full) → Hanle black → Umling La on tank+5L → <b>Nyoma</b> (full) → <b>Karu</b> → <b>Leh</b></div>
+  <div class="days">
+
+    <details class="day" data-d="1–2">
+      <summary>
+        <div class="d-date">Tue–Wed · Zostel Leh</div>
+        <div class="d-title">Leh · Acclimatize <span class="badge easy">EASY</span></div>
+        <div class="d-meta">Rest well — the next two days are long</div>
+      </summary>
+      <div class="d-body">
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>Leh pumps — FULL Day-2 evening</span><span>Get a jerry can</span></div>
+      </div>
+    </details>
+
+    <details class="day" data-d="3">
+      <summary>
+        <div class="d-date">Thu · Nubra Holiday</div>
+        <div class="d-title">Leh → Nubra → Turtuk &amp; back <span class="badge mod">LONG</span></div>
+        <div class="d-meta">~120 km + Turtuk ~95 km each way · paved but winding · 10+ h</div>
+      </summary>
+      <div class="d-body">
+        <p>Cross Khardung La early, drop bags at Nubra Holiday, then run Hunder → Turtuk: Balti culture, apricot orchards, Karakoram views near the LoC. Alternatively split it — Turtuk early Day 4 morning — but that squeezes the Shyok crossing.</p>
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>FULL from Leh</span><span>Diskit — fill FULL before Turtuk (no fuel beyond)</span><span>Top up Diskit again on return + jerry can</span></div>
+        <div class="warn">Carry permit copies — extra checkposts on the Turtuk road.</div>
+      </div>
+    </details>
+
+    <details class="day" data-d="4">
+      <summary>
+        <div class="d-date">Fri · Peaceful Home Stay</div>
+        <div class="d-title">Nubra → Merak via Shyok <span class="badge mod">MODERATE</span></div>
+        <div class="d-meta">~160 km · earliest start — yesterday was long</div>
+      </summary>
+      <div class="d-body">
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>Diskit FULL</span><span>No fuel on Shyok</span><span>Tangtse FULL</span></div>
+        <div class="warn">Shyok closed? Leh + Chang La fallback — skip Wari La with these tired legs.</div>
+      </div>
+    </details>
+
+    <details class="day" data-d="5">
+      <summary>
+        <div class="d-date">Sat · Padma Home Stay</div>
+        <div class="d-title">Merak → Hanle via Rezang La <span class="badge mod">MODERATE</span></div>
+        <div class="d-meta">~160 km · 6–7 h</div>
+      </summary>
+      <div class="d-body">
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>Tangtse fill carries you</span><span>Nyoma optional</span><span>Reserve black petrol at homestay</span></div>
+      </div>
+    </details>
+
+    <details class="day" data-d="6" data-must>
+      <summary>
+        <div class="d-date">Sun · Padma Home Stay</div>
+        <div class="d-title">UMLING LA DAY <span class="badge must">MUST DO</span></div>
+        <div class="d-meta">~150 km RT · dawn start · back by 2 PM</div>
+      </summary>
+      <div class="d-body">
+        <p>From India's northernmost accessible village earlier in the week to its highest road today — the frontier double.</p>
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>FULL Hanle black</span><span>+5 L spare</span><span>Nothing beyond Hanle</span></div>
+        <div class="warn">Army clearance at Loma/Photi La required; dry weather only.</div>
+      </div>
+    </details>
+
+    <details class="day" data-d="7">
+      <summary>
+        <div class="d-date">Mon · Tushita Ladakh</div>
+        <div class="d-title">Hanle → Leh via Chumathang <span class="badge easy">EASY</span></div>
+        <div class="d-meta">~275 km · all paved</div>
+      </summary>
+      <div class="d-body">
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>Nyoma FULL</span><span>Karu top-up</span><span>Leh pumps</span></div>
+      </div>
+    </details>
+
+    <details class="day" data-d="8">
+      <summary>
+        <div class="d-date">Tue · Tushita Ladakh</div>
+        <div class="d-title">Recovery + short monastery spin <span class="badge easy">EASY</span></div>
+        <div class="d-meta">Thiksey–Shey · ~60 km · you've covered ~1,400 km</div>
+      </summary>
+      <div class="d-body">
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>Leh pumps</span></div>
+      </div>
+    </details>
+
+    <details class="day" data-d="9">
+      <summary><div class="d-date">Wed</div><div class="d-title">Depart Leh ✈️</div><div class="d-meta">Check-out 12 PM</div></summary>
+      <div class="d-body"><p>Full tank at Leh pump for bike return if required.</p></div>
+    </details>
+
+  </div>
+</section>
+
+<!-- ================= OPTION 6 ================= -->
+<section class="panel" id="p6">
+  <div class="opt-head">
+    <div class="opt-title">Tso Moriri Finale + Umling La</div>
+    <div class="opt-sub">All three great lakes — Pangong, then Tso Moriri on the ride home. One monster Day 7, but you see everything.</div>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>~1,480 km</b>total riding</div>
+    <div class="stat diff-hard"><b>Mod–Hard</b>one 12-h day</div>
+    <div class="stat"><b>3 lakes</b>+ Umling La</div>
+  </div>
+  <div class="fuelroute"><span class="lbl">⛽ Fuel route</span><b>Leh</b> (full+jerry) → <b>Diskit</b> → <b>Tangtse</b> (full) → Hanle black ×2 (Day 6 + Day 7) → <b>Nyoma</b> (full, critical) → Karzok spur on tank → <b>Karu</b> → <b>Leh</b></div>
+  <div class="days">
+
+    <details class="day" data-d="1–2">
+      <summary>
+        <div class="d-date">Tue 21 – Wed 22 Jul · Zostel Leh</div>
+        <div class="d-title">Leh · Acclimatize <span class="badge easy">EASY</span></div>
+        <div class="d-meta">Day 2: flat spin to Sangam / Magnetic Hill</div>
+      </summary>
+      <div class="d-body">
+        <p>Rest hard — Day 7 of this option is the longest single day of any route here. Sleep debt now costs you at Tso Moriri later.</p>
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>Leh main pump (IOC)</span><span>Choglamsar pump</span><span>FULL Day-2 evening</span><span>Buy a jerry can</span></div>
+        <div class="tip">Permit portal (lahdclehpermit.in): tick Nubra + Pangong + Hanle + Umling La + Tso Moriri circuits. 8–10 printed copies.</div>
+      </div>
+    </details>
+
+    <details class="day" data-d="3">
+      <summary>
+        <div class="d-date">Thu 23 Jul · Nubra Holiday</div>
+        <div class="d-title">Leh → Nubra via Khardung La <span class="badge easy">EASY</span></div>
+        <div class="d-meta">~120 km · 4–5 h · Diskit Monastery + Hunder dunes</div>
+      </summary>
+      <div class="d-body">
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>FULL from Leh</span><span>Diskit pump — top up + 5 L reserve</span></div>
+      </div>
+    </details>
+
+    <details class="day" data-d="4">
+      <summary>
+        <div class="d-date">Fri 24 Jul · Peaceful Home Stay</div>
+        <div class="d-title">Nubra → Merak via Shyok · Lake #1 <span class="badge mod">MODERATE</span></div>
+        <div class="d-meta">~160 km · 5–7 h · Pangong shoreline to Merak</div>
+      </summary>
+      <div class="d-body">
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>Diskit before leaving</span><span>No fuel on Shyok</span><span>Tangtse — fill FULL</span></div>
+        <div class="warn">Shyok flooded? Fall back via Leh + Chang La (paved).</div>
+      </div>
+    </details>
+
+    <details class="day" data-d="5">
+      <summary>
+        <div class="d-date">Sat 25 Jul · Padma Home Stay</div>
+        <div class="d-title">Merak → Hanle via Rezang La <span class="badge mod">MODERATE</span></div>
+        <div class="d-meta">~160 km · 6–7 h</div>
+      </summary>
+      <div class="d-body">
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>Tangtse fill carries you</span><span>Nyoma optional detour</span><span>Reserve black petrol at homestay — enough for Day 6 AND a Day-7 top-up</span></div>
+        <div class="tip">Confirm Umling La access with the army at Loma checkpost today.</div>
+      </div>
+    </details>
+
+    <details class="day" data-d="6" data-must>
+      <summary>
+        <div class="d-date">Sun 26 Jul · Padma Home Stay</div>
+        <div class="d-title">UMLING LA DAY <span class="badge must">MUST DO</span></div>
+        <div class="d-meta">~150 km RT · dawn start · back by 2 PM · early night</div>
+      </summary>
+      <div class="d-body">
+        <p>Standard summit protocol — but on this option, discipline matters double: be back by early afternoon, service-check the bike, and sleep early. Tomorrow is the big one.</p>
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>FULL Hanle black</span><span>+5 L spare</span><span>Nothing beyond Hanle</span><span>Refill tank from black stock on return for Day 7</span></div>
+        <div class="warn">Army clearance at Loma/Photi La required; dry weather only. Bail option: observatory + stargazing.</div>
+      </div>
+    </details>
+
+    <details class="day" data-d="7">
+      <summary>
+        <div class="d-date">Mon 27 Jul · Tushita Ladakh</div>
+        <div class="d-title">Hanle → TSO MORIRI → Leh · Lake #3 <span class="badge hard">LONG</span></div>
+        <div class="d-meta">~380 km · 12–13 h · depart 5 AM sharp</div>
+      </summary>
+      <div class="d-body">
+        <p>The finale: Hanle → Loma → Nyoma → Mahe bridge, then the 55 km spur along the lake to <b>Karzok (Tso Moriri, ~4,522 m)</b> — mixed tarmac and gravel, big turquoise payoff. Lakeshore + Korzok Monastery lunch (max 1.5 h), then back to Mahe and home via Chumathang hot springs → Upshi → Karu → Leh. You'll also glimpse Kyagar Tso (lake #2 of the day) on the Karzok spur.</p>
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>Leave Hanle FULL (black top-up)</span><span>Nyoma pump — fill FULL, non-negotiable</span><span>NO fuel Mahe→Karzok→Mahe (110 km RT)</span><span>Karu top-up</span><span>Leh pumps on arrival</span></div>
+        <div class="warn">Do NOT exit via Tso Kar–Polokongka La–Taglang La — that stretch is rough dirt and adds risk to an already huge day. The Mahe–Chumathang return is paved and reliable. If you're behind schedule at Mahe by 11 AM, skip Karzok and ride straight home — Tushita is booked either way.</div>
+        <div class="tip">Alternative split: skip the Day-8 Leh spare day plan and instead do Tso Moriri as a Leh day-trip on Day 8 (~430 km RT — honestly worse). The Day-7 routing above is the efficient way.</div>
+      </div>
+    </details>
+
+    <details class="day" data-d="8">
+      <summary>
+        <div class="d-date">Tue 28 Jul · Tushita Ladakh</div>
+        <div class="d-title">Full recovery day in Leh <span class="badge easy">EASY</span></div>
+        <div class="d-meta">Sleep in · market · optional short Shey–Thiksey spin (~60 km)</div>
+      </summary>
+      <div class="d-body">
+        <p>After ~1,450 km and three lakes, you've earned a slow day. Bike return admin, souvenirs, café time.</p>
+        <div class="sec">⛽ Fuel</div>
+        <div class="fuel"><span>Leh pumps</span></div>
+      </div>
+    </details>
+
+    <details class="day" data-d="9">
+      <summary><div class="d-date">Wed 29 Jul</div><div class="d-title">Depart Leh ✈️</div><div class="d-meta">Check-out 12 PM</div></summary>
+      <div class="d-body"><p>Full tank at Leh pump for bike return if required.</p></div>
+    </details>
+
+  </div>
+</section>
+
+<!-- ================= ESSENTIALS ================= -->
+<div class="stays" id="stays">
+  <div class="stays-h">🏠 Stays &amp; Bookings — all confirmed · 5 travellers</div>
+  <div class="pay-total">Total <b>₹36,349</b> · Advance paid <b>₹14,145</b> · <b>Balance due ₹22,205</b> — settle in cash at each stay (no network/UPI beyond Karu)</div>
+
+  <div class="stay">
+    <div class="s-town">Leh · Day 1–2 · Tue 21 – Thu 23 Jul</div>
+    <div class="s-name">Zostel Leh</div>
+    <div class="s-dates">Check-in 1:00 PM · Check-out 10:00 AM</div>
+    <div class="s-money"><span>Total <b>₹6,289</b></span><span class="paid">Paid <b>₹3,145</b></span><span>Due <b>₹3,145</b></span></div>
+    <div class="s-links">
+      <a class="nonum" href="#">☎ Book via Zostel app/site</a>
+      <a class="map" href="https://maps.app.goo.gl/wAeM7GggrwLrVDDc9" target="_blank" rel="noopener">📍 Map</a>
+    </div>
+  </div>
+
+  <div class="stay">
+    <div class="s-town">Nubra · Day 3 · Thu 23 – Fri 24 Jul</div>
+    <div class="s-name">Nubra Holiday</div>
+    <div class="s-money"><span>Total <b>₹6,000</b></span><span class="paid">Paid <b>₹1,000</b></span><span>Due <b>₹5,000</b></span></div>
+    <div class="s-links">
+      <a class="call" href="tel:+917051927769">📞 705 192 7769</a>
+      <a class="map" href="https://maps.app.goo.gl/ALgpSYd2VzFN7ujLA" target="_blank" rel="noopener">📍 Map</a>
+    </div>
+  </div>
+
+  <div class="stay">
+    <div class="s-town">Merak (Pangong) · Day 4 · Fri 24 – Sat 25 Jul</div>
+    <div class="s-name">Peaceful Home Stay</div>
+    <div class="s-money"><span>Total <b>₹6,500</b></span><span class="paid">Paid <b>₹3,000</b></span><span>Due <b>₹3,500</b></span></div>
+    <div class="s-links">
+      <a class="call" href="tel:+919469280274">📞 946 928 0274</a>
+      <a class="map" href="https://maps.app.goo.gl/KqNrPbuN2D8GWj3h6" target="_blank" rel="noopener">📍 Map</a>
+    </div>
+  </div>
+
+  <div class="stay">
+    <div class="s-town">Hanle · Day 5–6 · Sat 25 – Mon 27 Jul</div>
+    <div class="s-name">Padma Home Stay</div>
+    <div class="s-dates">Reserve black petrol for Umling La when you call</div>
+    <div class="s-money"><span>Total <b>₹10,000</b></span><span class="paid">Paid <b>₹5,000</b></span><span>Due <b>₹5,000</b></span></div>
+    <div class="s-links">
+      <a class="nonum" href="#">☎ No number on file — add it</a>
+      <a class="map" href="https://maps.app.goo.gl/NkrKr6m4WzhJevpK8" target="_blank" rel="noopener">📍 Map</a>
+    </div>
+  </div>
+
+  <div class="stay">
+    <div class="s-town">Leh · Day 7–8 · Mon 27 – Wed 29 Jul</div>
+    <div class="s-name">Tushita Ladakh</div>
+    <div class="s-dates">Check-in 10:00 AM · Check-out 12:00 PM</div>
+    <div class="s-money"><span>Total <b>₹7,560</b></span><span class="paid">Paid <b>₹2,000</b></span><span>Due <b>₹5,560</b></span></div>
+    <div class="s-links">
+      <a class="call" href="tel:+918492866586">📞 849 286 6586</a>
+      <a class="map" href="https://maps.app.goo.gl/75sCgPDDsi4jq1Yy8" target="_blank" rel="noopener">📍 Map</a>
+    </div>
+  </div>
+
+  <div class="stay">
+    <div class="s-town">Bike rental · Wed 22 – Tue 28 Jul · 7 days</div>
+    <div class="s-name">Konchuk (vendor)</div>
+    <div class="s-dates">Carry DL + ID copies · check brakes/tyres/clutch at pickup · confirm deposit terms · save vendor WhatsApp for breakdown support</div>
+    <div class="s-links">
+      <a class="call" href="tel:+919419232577">📞 941 923 2577</a>
+      <a class="map" href="https://wa.me/919419232577" target="_blank" rel="noopener">💬 WhatsApp</a>
+    </div>
+  </div>
+</div>
+<div class="essentials">
+  <h2>Trip Essentials</h2>
+
+  <details class="ess">
+    <summary>⛽ Fuel map — every working pump</summary>
+    <div class="d-body">
+      <ul>
+        <li><b>Leh</b> — 2 pumps (main bazaar IOC + Choglamsar)</li>
+        <li><b>Karu</b> — 35 km from Leh on Manali highway</li>
+        <li><b>Diskit</b> — the ONLY Nubra pump; hand-operated at times, can run dry</li>
+        <li><b>Tangtse</b> — 34 km before Pangong; last pump before Changthang</li>
+        <li><b>Nyoma</b> — ~75 km before Hanle</li>
+        <li><b>Hanle</b> — no pump; homestays sell petrol in black (reserve ahead)</li>
+        <li><b>Nothing</b> on Shyok road, Wari La, Turtuk road, Mahe→Karzok (Tso Moriri) spur, or beyond Hanle</li>
+      </ul>
+      <p>High altitude cuts mileage 30–40%. Carry a 5–10 L jerry can from Leh for the Nubra→Pangong→Hanle→Umling La stretch.</p>
+    </div>
+  </details>
+
+  <details class="ess">
+    <summary>📋 Permits (2026, Indian nationals)</summary>
+    <div class="d-body">
+      <p>No separate ILP — pay the Environment &amp; Development Fee online at <b>lahdclehpermit.in</b> (~₹590 for the trip, valid 21 days). Portal unlocks only after 48 h in Leh. Tick <b>Nubra + Pangong + Hanle + Umling La</b> circuits. Carry 8–10 photocopies for the South Pullu, Tangtse, Mahe and Loma checkposts — no network to show digital copies.</p>
+      <p>Foreigners: PAP via a Leh agent; generally not permitted to Umling La.</p>
+    </div>
+  </details>
+
+  <details class="ess">
+    <summary>🌧️ Late-July reality check</summary>
+    <div class="d-body">
+      <ul>
+        <li>Peak monsoon influence: the Shyok road flooded badly in July 2025 (roads under 2–3 m of mud in places). Decide the Nubra→Pangong route on the morning of Day 4, not before.</li>
+        <li>Khardung La timing: uphill 9 AM–1 PM, downhill 1–5 PM. Leave Leh by 7–8 AM.</li>
+        <li>All water crossings (Shyok nalas, Chang La streams, Photi La): cross before 11 AM–noon — glacial melt doubles them by afternoon.</li>
+        <li>Fallback hierarchy if Shyok is shut: back-to-Leh + Chang La (paved) &gt; Wari La (rough — Option 3 riders only).</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="ess">
+    <summary>🏔️ Umling La checklist</summary>
+    <div class="d-body">
+      <ul>
+        <li>Confirm army clearance in Leh AND at Loma checkpost on Day 5</li>
+        <li>Depart Hanle 5–6 AM; summit by 11; descend by 2 PM</li>
+        <li>Full tank + 5 L spare; no services beyond Hanle</li>
+        <li>Portable oxygen can + warm windproof layers (sub-zero windchill even in July)</li>
+        <li>Max 10–15 min at the summit (~5,798 m)</li>
+        <li>Final climb: sealed tarmac. Photi La approach: steep loose gravel + streams — slow, feet-ready</li>
+        <li>Bail triggers: overnight rain, AMS symptoms, or road closed → observatory + stargazing instead</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="ess">
+    <summary>🎒 Pack list highlights</summary>
+    <div class="d-body">
+      <ul>
+        <li>Diamox (consult doctor) + portable oxygen + basic med kit</li>
+        <li>5–10 L jerry can, bungee straps, puncture kit, spare tube/clutch cable</li>
+        <li>Cash — ATMs only in Leh, Diskit, Nyoma (often dry)</li>
+        <li>BSNL/Jio postpaid SIM (only networks that work in Changthang; patchy)</li>
+        <li>Red-light torch for Hanle Dark Sky nights</li>
+        <li>Waterproof riding gear — it's monsoon-adjacent season</li>
+      </ul>
+    </div>
+  </details>
+</div>
+
+<footer>Distances &amp; times approximate for RE-class bikes · verify road status daily in Leh · Jul 2026</footer>
+</div>
+
+<script>
+const tabs=document.querySelectorAll('.tab'),panels=document.querySelectorAll('.panel');
+tabs.forEach(t=>t.addEventListener('click',()=>{
+  tabs.forEach(x=>x.classList.remove('active'));
+  panels.forEach(p=>p.classList.remove('active'));
+  t.classList.add('active');
+  document.getElementById(t.dataset.p).classList.add('active');
+  window.scrollTo({top:0});
+}));
+</script>
+</body>
+</html>
